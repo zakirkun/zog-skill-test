@@ -6,9 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/viper"
-	"github.com/zakirkun/zot-skill-test/pkg/database"
 )
 
 type Config struct {
@@ -37,14 +35,7 @@ func (c *Config) Initialize() error {
 			return err
 		}
 		return err
-	}
 
-	var dbStructure database.DBModel
-	err = viper.Unmarshal(&dbStructure, func(c *mapstructure.DecoderConfig) {
-		c.TagName = "config"
-	})
-	if err != nil {
-		return err
 	}
 
 	return nil

@@ -22,7 +22,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=Zakir123
       - POSTGRES_USER=zakir
-      - POSTGRES_DB=zot_news
+      - POSTGRES_DB=zog_news
     restart: unless-stopped
     networks:
       - infrastructure

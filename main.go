@@ -4,8 +4,10 @@ import (
 	"flag"
 	"log"
 	"os"
+	"runtime"
 	"time"
 
+	"github.com/zakirkun/zot-skill-test/bootstrap"
 	"github.com/zakirkun/zot-skill-test/pkg/config"
 	"github.com/zakirkun/zot-skill-test/pkg/database"
 	"github.com/zakirkun/zot-skill-test/pkg/server"
@@ -21,7 +23,16 @@ func init() {
 
 func main() {
 	setConfig()
+	setMaxprocs()
 
+	initApp := bootstrap.NewInfrastructure(SetDatabase(), SetWebServer())
+	initApp.Database()
+	initApp.WebServer()
+}
+
+func setMaxprocs() {
+	n := runtime.NumCPU()
+	runtime.GOMAXPROCS(n)
 }
 
 func setConfig() {

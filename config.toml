@@ -9,7 +9,7 @@ cache_purged = 60
 db_driver = "postgres"
 db_host = "postgres"
 db_port = "5432"
-db_name = "zot_news"
+db_name = "zog_news"
 db_username = "zakir"
 db_password = "Zakir123"
 

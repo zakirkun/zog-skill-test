@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "750608a0-5e86-427c-a291-c339307ffd26",
+		"name": "News",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15555130"
+	},
+	"item": [
+		{
+			"name": "List news",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/news/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"news",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create News",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Kaori Nusantara",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "draft",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Informasi seputar jejepangan dan indol",
+							"type": "text"
+						},
+						{
+							"key": "thumbnail",
+							"type": "file",
+							"src": "/C:/Users/coder/Downloads/d7003a564051a703af83608f2a85905b.jpg"
+						},
+						{
+							"key": "topics[]",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "topics[]",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "topics[]",
+							"value": "4",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/news/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"news",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Detail News",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/news/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"news",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update News",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Wibu Indonesia",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "published",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Anjay Wibu Keren Banget",
+							"type": "text"
+						},
+						{
+							"key": "thumbnail",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "topics[]",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "topics[]",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/news/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"news",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete News",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/news/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"news",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
