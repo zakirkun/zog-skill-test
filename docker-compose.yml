@@ -26,7 +26,83 @@ services:
     restart: unless-stopped
     networks:
       - infrastructure
-    
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter
+    container_name: postgres-exporter
+    restart: always
+    ports:
+      - 9187:9187
+    environment:
+      DATA_SOURCE_NAME: "postgresql://zakir:Zakir123@postgres:5432/zog_news?sslmode=disable"
+    links:
+      - postgres
+      - prometheus
+    depends_on:
+      - postgres
+    networks:
+      - infrastructure
+  prometheus:
+    image: prom/prometheus:v2.45.2
+    user: root
+    volumes:
+      - "./etc/prometheus/:/etc/prometheus/"
+      - "./var/prometheus/prometheus_data:/prometheus"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.enable-lifecycle"
+    ports:
+      - "9090:9090"
+    networks:
+      - infrastructure
+  grafana:
+    image: grafana/grafana
+    user: root
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./var/grafana/grafana_data:/var/lib/grafana"
+      - "./etc/grafana/provisioning/:/etc/grafana/provisioning/"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=foobar
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - infrastructure
+  alertmanager:
+    image: prom/alertmanager:v0.24.0
+    ports:
+      - 9093:9093
+    volumes:
+      - ./etc/alertmanager/:/etc/alertmanager/
+    command:
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--storage.path=/alertmanager"
+    networks:
+      - infrastructure
+  pushgateway:
+    image: prom/pushgateway
+    ports:
+      - "9091:9091"
+    depends_on:
+      - prometheus
+    networks:
+      - infrastructure
+  #https://logz.io/blog/devops/prometheus-architecture-at-scale/
+  cortex:
+    image: cortexproject/cortex:v0.1.0
+    #image: ubuntu/cortex:latest
+    ports:
+      - "9009:9009"
+    command: "-config.file=/etc/single-process-config.yaml"
+    depends_on:
+      - prometheus
+    volumes:
+      - "./etc/cortex/single-process-config.yaml:/etc/single-process-config.yaml"
+    networks:
+      - infrastructure
+
 networks:
   infrastructure:
     driver: bridge

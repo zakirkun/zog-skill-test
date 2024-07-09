@@ -1,0 +1,49 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'zog_news'
+
+rule_files:
+  - 'alert.rules'
+
+# Grafana URL: http://cortex:9009/api/prom
+remote_write:
+  - url: http://cortex:9009/api/prom/push
+
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+        - targets:
+            - "alertmanager:9093"
+
+scrape_configs:
+
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Doc: https://docs.docker.com/config/daemon/prometheus/
+  # Linux Workaround: https://stackoverflow.com/a/67158212/1341168
+  - job_name: 'docker'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:9323']
+
+  - job_name: 'zog_news'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['backend_app:9000']
+
+  - job_name: 'postgres-exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['postgres-exporter:9104']
+
+  - job_name: 'pushgateway'
+    scrape_interval: 10s
+    honor_labels: true
+    static_configs:
+      - targets: ['pushgateway:9091']

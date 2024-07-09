@@ -1,0 +1,21 @@
+groups:
+- name: example
+  rules:
+
+  # Go routines gt 10
+  - alert: goRoutinesGt10
+    expr: avg(go_goroutines) > 10
+    for: 1m
+    labels:
+       severity: page
+    annotations:
+       summary: "Go Routines AVG grater than 10"
+
+  # Go routines gt 100000
+  - alert: goRoutinesGt100000
+    expr: avg(go_goroutines) > 100000
+    for: 1m
+    labels:
+       severity: page
+    annotations:
+       summary: "Go Routines AVG grater than 100000"
